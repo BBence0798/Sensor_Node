@@ -12,5 +12,8 @@ public class TempSensor extends Sensor {
     @Override
     public void work() {
         System.out.println(address+ " : " + port);
+        connect();
+        out.println("Hello. I am a temperature sensor!");
+        out.println("VEGE");
     }
 }

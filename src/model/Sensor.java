@@ -12,9 +12,8 @@ public abstract class Sensor {
     public Socket socket = null;  //sensor socket-ja
     public String address;  //server ip cím
     public int port;  //server port
-    public DataInputStream input   = null;  //bemenet a szerver felől
-    public DataOutputStream out     = null;  //kiment a szerver felé
-
+    public BufferedReader input   = null;  //bemenet a szerver felől
+    public PrintWriter out     = null;  //kiment a szerver felé
 
     public Sensor(String address, int port) {
         this.address = address;
@@ -27,8 +26,8 @@ public abstract class Sensor {
     public void connect(){
         try {
             socket = new Socket(address,port);
-            input  = new DataInputStream(socket.getInputStream());
-            out    = new DataOutputStream(socket.getOutputStream());
+            input  = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out    = new PrintWriter(socket.getOutputStream(),true);
         } catch (IOException e) {
             e.printStackTrace();
         }
