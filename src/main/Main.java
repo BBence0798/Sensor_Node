@@ -1,8 +1,6 @@
 package main;
 
-import model.SensorType;
-import model.TempSensor;
-import model.WaterLevelMeterSensor;
+import model.*;
 
 import java.util.Scanner;
 
@@ -12,6 +10,8 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         SensorType st = new SensorType();
+        String address = "127.0.0.1";
+        int port = 3000;
 
         /*Sensor típus kiválasztása hogy milyen típusú szenzor induljon el*/
         System.out.println(st.toString());
@@ -20,12 +20,20 @@ public class Main {
 
         /*Választott típusnak megfelelő szenzor indítása*/
         if(type == 0){
-            TempSensor temp = new TempSensor("127.0.0.1",3000);
-            temp.work();
+            TempSensor tempSensor = new TempSensor(address,port);
+            tempSensor.work();
         }
         else if(type == 1){
-            WaterLevelMeterSensor wlms = new WaterLevelMeterSensor("127.0.0.1",3000);
-            wlms.work();
+            WaterLevelMeterSensor waterLevelMeterSensor = new WaterLevelMeterSensor(address,port);
+            waterLevelMeterSensor.work();
+        }
+        else if(type == 2){
+            HumiditySensor humiditySensor = new HumiditySensor(address,port);
+            humiditySensor.work();
+        }
+        else if(type == 3){
+            IrrigationNode irrigationNode = new IrrigationNode(address,port);
+            irrigationNode.work();
         }
     }
 }
