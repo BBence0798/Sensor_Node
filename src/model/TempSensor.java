@@ -7,9 +7,12 @@ import java.util.Random;
  * */
 public class TempSensor extends Sensor {
 
-    private  double minValue = 20;
+    private  double minValue = 2;
     private double maxValue = 40;
     Random random;
+
+    public TempSensor() {
+    }
 
     public TempSensor(String address, int port) {
         super(address,port);
@@ -25,7 +28,7 @@ public class TempSensor extends Sensor {
         /*Mérési adatok generálása, majd továbbítása a központi egység fel*/
         for (int i = 0; i < 10 ; i++) {
             try{
-                double value = minValue + (maxValue-minValue) * random.nextDouble();  //random szám generálása 2 érték között
+                double value = measureTemperature();
                 System.out.println(value);
                 out.println(value);
                 Thread.sleep(1000);
@@ -36,5 +39,9 @@ public class TempSensor extends Sensor {
 
         /*Központi egység értesítése a lekapcsolódásról*/
         out.println("VEGE");
+    }
+
+    public double measureTemperature(){
+        return  minValue + (maxValue-minValue) * random.nextDouble();  //random szám generálása 2 érték között
     }
 }

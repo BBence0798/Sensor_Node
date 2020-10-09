@@ -7,14 +7,16 @@ import java.util.Random;
 * */
 public class HumiditySensor extends Sensor {
 
-    private double value;
-    private double minValue = 0;
-    private double maxValue = 100;
     private Random random;
+    private TempSensor tempSensor;
+    private double temperature;
+    private double dewPoint;
+    private double humidityValue;
 
     public HumiditySensor(String address, int port) {
         super(address, port);
         random = new Random();
+        tempSensor = new TempSensor();
     }
 
     @Override
@@ -26,8 +28,10 @@ public class HumiditySensor extends Sensor {
 
         for(int i = 0;i < 10;i++){
             try {
-                value = minValue + (maxValue-minValue) * random.nextDouble();  //páratartalom érték generálása 0 - 100 közötti %-os érték
-                out.println(value);
+                temperature = tempSensor.measureTemperature();
+                dewPoint = calculateDewPoint(temperature);
+                humidityValue = calculateHumidity(temperature,dewPoint);
+                out.println(humidityValue);
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -35,5 +39,37 @@ public class HumiditySensor extends Sensor {
         }
 
         out.println("VEGE");
+    }
+
+    //Páratartalom érték kiszámítása
+    private double calculateHumidity(double temperature,double dewPoint){
+            double es = calculateVaporPressure(temperature); //telített gőznyomás
+            double e = calculateVaporPressure(dewPoint);
+
+            return (e/es)*100;
+    }
+
+    private double calculateVaporPressure(double t){
+        return 6.11*10*((7.5*t)/(237.3+t));
+    }
+
+    //Harmatpont meghatározása adott hőmérséklethez
+    private double calculateDewPoint(double temperature){
+
+        if(temperature>= 2 && temperature<= 11)
+            return genDewPoint(-7.7,9.31);
+        else if(temperature>=12 && temperature<=20)
+            return genDewPoint(0.35,19.18);
+        else if(temperature>=21 && temperature<=25)
+            return genDewPoint(8.6,24.22);
+        else if(temperature>=26 && temperature<=30)
+            return genDewPoint(13.15,29.09);
+
+        return genDewPoint(18.52,39.11);
+    }
+
+    //random harmatpont generálása
+    private double genDewPoint(double min, double max){
+        return min + (max-min) * random.nextDouble();
     }
 }

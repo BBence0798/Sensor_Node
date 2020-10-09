@@ -15,6 +15,9 @@ public abstract class Sensor {
     public BufferedReader input   = null;  //bemenet a szerver felől
     public PrintWriter out     = null;  //kiment a szerver felé
 
+    public Sensor() {
+    }
+
     public Sensor(String address, int port) {
         this.address = address;
         this.port = port;

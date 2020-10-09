@@ -49,7 +49,7 @@ public class IrrigationNode extends  Actuator {
         return  minValue + (maxValue-minValue) * random.nextInt();
     }
 
-    //A mért érték kiértékelése
+    //A  nedvesség érték kiértékelése
     private void examineHumidityValue(int h){
         if(h>=1 && h<=3)
             System.out.println("Working on hard mode");
