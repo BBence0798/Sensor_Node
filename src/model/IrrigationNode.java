@@ -10,6 +10,7 @@ public class IrrigationNode extends  Actuator {
     private int minValue = 1;
     private int maxValue = 8;
     private Random random;
+    private double[] coordinates;
 
     public IrrigationNode(String address, int port) {
         super(address, port);
@@ -20,9 +21,9 @@ public class IrrigationNode extends  Actuator {
     public void work() {
         //csatlakozás a központi egységhez
         connect();
-
-        //A központi egység értesítése a node típusáról
-        out.println("Type: "+ SensorType.Types.Irrigation);
+        coordinates = getCoordinates(); //koordináták generálása
+        //A központi egység értesítése a node típusáról és a koordinátákról
+        out.println("Type: "+ SensorType.Types.Irrigation + " x:" +coordinates[0] + " ,y:" +coordinates[1]);
 
         while(true){
             try {

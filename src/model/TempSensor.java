@@ -9,6 +9,7 @@ public class TempSensor extends Sensor {
 
     private  double minValue = 2;
     private double maxValue = 40;
+    private double[] coordinates;
     Random random;
 
     public TempSensor() {
@@ -23,7 +24,8 @@ public class TempSensor extends Sensor {
     public void work() {
         System.out.println(address+ " : " + port);
         connect();  //kapcsolódás a központi egységhez
-        out.println("Type:" + SensorType.Types.TemperatureSensor);  //a központi egység értesítése a sensor típusáról
+        coordinates = getCoordinates(); //koordináták generálása
+        out.println("Type:" + SensorType.Types.TemperatureSensor + "x:" + coordinates[0] + ", y:"+ coordinates[1]);  //a központi egység értesítése a sensor típusáról és a koordinátákról
 
         /*Mérési adatok generálása, majd továbbítása a központi egység fel*/
         for (int i = 0; i < 10 ; i++) {

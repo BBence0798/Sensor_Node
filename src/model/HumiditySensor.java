@@ -12,6 +12,7 @@ public class HumiditySensor extends Sensor {
     private double temperature;
     private double dewPoint;
     private double humidityValue;
+    private double[] coordinates;
 
     public HumiditySensor(String address, int port) {
         super(address, port);
@@ -23,8 +24,8 @@ public class HumiditySensor extends Sensor {
     public void work() {
         //Csatlakozás a központi egységhez
         connect();
-
-        out.println("Type:" + SensorType.Types.HumiditySensor);  //A szerver értesítése a csatlakozott eszköz típusáról
+        coordinates = getCoordinates();  //koordináták generálása
+        out.println("Type:" + SensorType.Types.HumiditySensor + " x:" + coordinates[0] + ", y:"+coordinates[1]);  //A szerver értesítése a csatlakozott eszköz típusáról és a koordinátákról
 
         for(int i = 0;i < 10;i++){
             try {
@@ -44,7 +45,7 @@ public class HumiditySensor extends Sensor {
     //Páratartalom érték kiszámítása
     private double calculateHumidity(double temperature,double dewPoint){
             double es = calculateVaporPressure(temperature); //telített gőznyomás
-            double e = calculateVaporPressure(dewPoint);
+            double e = calculateVaporPressure(dewPoint); //aktuális gőznyomás
 
             return (e/es)*100;
     }

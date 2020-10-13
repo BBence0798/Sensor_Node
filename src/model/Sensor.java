@@ -2,6 +2,7 @@ package model;
 
 import java.io.*;
 import java.net.*;
+import java.util.Random;
 
 /*
  * Abstract osztály, Sesnor model, minden továbbiakban létrehozott sensor rendelkezik
@@ -34,6 +35,19 @@ public abstract class Sensor {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /*Generál koordinátákat és vissza adja azokat*/
+    public  double[] getCoordinates(){
+        double[] coordinates = new double[2];
+        Random r = new Random();
+        double min = -50;
+        double max = 50;
+
+        coordinates[0] =  min + (max-min) * r.nextDouble();
+        coordinates[1] =  min + (max-min) * r.nextDouble();
+
+        return coordinates;
     }
 
     /*
