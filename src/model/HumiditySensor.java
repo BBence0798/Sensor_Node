@@ -25,7 +25,7 @@ public class HumiditySensor extends Sensor {
         //Csatlakozás a központi egységhez
         connect();
         coordinates = getCoordinates();  //koordináták generálása
-        out.println("Type:" + SensorType.Types.HumiditySensor + " x:" + coordinates[0] + ", y:"+coordinates[1]);  //A szerver értesítése a csatlakozott eszköz típusáról és a koordinátákról
+        out.println("Type: " + SensorType.Types.HumiditySensor + " x:" + coordinates[0] + " y:"+coordinates[1]);  //A szerver értesítése a csatlakozott eszköz típusáról és a koordinátákról
 
         for(int i = 0;i < 10;i++){
             try {

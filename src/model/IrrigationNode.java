@@ -23,7 +23,7 @@ public class IrrigationNode extends  Actuator {
         connect();
         coordinates = getCoordinates(); //koordináták generálása
         //A központi egység értesítése a node típusáról és a koordinátákról
-        out.println("Type: "+ SensorType.Types.Irrigation + " x:" +coordinates[0] + " ,y:" +coordinates[1]);
+        out.println("Type: "+ SensorType.Types.Irrigation + " x:" +coordinates[0] + " y:" +coordinates[1]);
 
         while(true){
             try {

@@ -2,6 +2,7 @@ package model;
 
 import java.io.*;
 import java.net.*;
+import java.text.DecimalFormat;
 import java.util.Random;
 
 /*
@@ -37,6 +38,9 @@ public abstract class Sensor {
         }
     }
 
+    //Lekerekítjük 2 tizedesjegyre a koordinátát
+    private static DecimalFormat df = new DecimalFormat("0.00");
+
     /*Generál koordinátákat és vissza adja azokat*/
     public  double[] getCoordinates(){
         double[] coordinates = new double[2];
@@ -44,8 +48,8 @@ public abstract class Sensor {
         double min = -50;
         double max = 50;
 
-        coordinates[0] =  min + (max-min) * r.nextDouble();
-        coordinates[1] =  min + (max-min) * r.nextDouble();
+        coordinates[0] = Double.parseDouble(df.format(min + (max-min) * r.nextDouble()).replaceAll(",","."));
+        coordinates[1] = Double.parseDouble(df.format(min + (max-min) * r.nextDouble()).replaceAll(",","."));
 
         return coordinates;
     }

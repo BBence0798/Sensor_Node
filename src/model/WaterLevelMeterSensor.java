@@ -20,7 +20,7 @@ public class WaterLevelMeterSensor extends Sensor {
         System.out.println(address+ " : " + port);
         connect();  //kapcsolódás a központi egységhez
         coordinates = getCoordinates();  //koordináták generálása
-        out.println("Type:" + SensorType.Types.WaterLevelMeterSensor + " x:"+coordinates[0] + ", y:"+coordinates[1]);  //a központi egység értesítése a sensor típusáról és a koordinátákról
+        out.println("Type: " + SensorType.Types.WaterLevelMeterSensor + " x:"+coordinates[0] + " y:"+coordinates[1]);  //a központi egység értesítése a sensor típusáról és a koordinátákról
 
         /*Mérési adatok generálása, majd továbbítása a központi egység fel*/
         for (int i = 0; i < 10 ; i++) {
@@ -28,7 +28,7 @@ public class WaterLevelMeterSensor extends Sensor {
                 double value = minValue + (maxValue-minValue) * random.nextDouble();  //random szám generálása 2 érték között
                 waterLevel += value;
                 System.out.println(waterLevel);
-                //out.println(value);
+                out.println(value);
                 Thread.sleep(1000);
             }catch (InterruptedException e) {
                 e.printStackTrace();
