@@ -7,12 +7,13 @@ import java.util.Random;
  * */
 public class TempSensor extends Sensor {
 
-    private  double minValue = 2;
+    private double minValue = 2;
     private double maxValue = 40;
     private double[] coordinates;
     Random random;
 
     public TempSensor() {
+        random = new Random();
     }
 
     public TempSensor(String address, int port) {

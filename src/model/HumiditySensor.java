@@ -32,6 +32,7 @@ public class HumiditySensor extends Sensor {
                 temperature = tempSensor.measureTemperature();
                 dewPoint = calculateDewPoint(temperature);
                 humidityValue = calculateHumidity(temperature,dewPoint);
+                System.out.println(humidityValue);
                 out.println(humidityValue);
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -47,7 +48,13 @@ public class HumiditySensor extends Sensor {
             double es = calculateVaporPressure(temperature); //telített gőznyomás
             double e = calculateVaporPressure(dewPoint); //aktuális gőznyomás
 
-            return (e/es)*100;
+            double rh = 0.00;
+
+            do{
+                rh = (e/es)*100;
+            }while (rh<0);
+
+            return rh;
     }
 
     private double calculateVaporPressure(double t){

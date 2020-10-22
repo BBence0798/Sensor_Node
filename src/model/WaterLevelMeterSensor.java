@@ -28,7 +28,7 @@ public class WaterLevelMeterSensor extends Sensor {
                 double value = minValue + (maxValue-minValue) * random.nextDouble();  //random szám generálása 2 érték között
                 waterLevel += value;
                 System.out.println(waterLevel);
-                out.println(value);
+                out.println(waterLevel);  //itt volt az egyik hiba hogy nem az aktuális szintet küldte hanem azt hogy éppen mennyivel nőtt
                 Thread.sleep(1000);
             }catch (InterruptedException e) {
                 e.printStackTrace();
